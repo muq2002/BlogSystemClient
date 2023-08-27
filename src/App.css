@@ -57,10 +57,16 @@ footer{
 .post img{
     display: block;
     width: 300px !important;
+    height: 200px;
     border-radius: 5px;
 }
 .content{
     display: block;
+}
+
+.post-page .content{
+    line-height: 2rem;
+    padding: 0 15px;
 }
 
 .title{
@@ -98,7 +104,7 @@ footer{
 }
 input , textarea{
     display: block;
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding: 5px 10px;
     background-color: white;
     border: 1px solid #ccc;
@@ -106,15 +112,14 @@ input , textarea{
     width: 100%;
 }
 
-button{
+form button{
     background-color: #555;
     color: white;
     width: 100%;
     padding: 5px 10px;
     margin-top: 10px;
+    cursor: pointer;
 }
-
-
 textarea{
     resize: none;
 }
@@ -122,6 +127,14 @@ textarea{
     height: 200px;
 
 }
+header button{
+    border: none;
+    background: transparent;
+    color: red;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 
 
 .img-fluid{
@@ -134,4 +147,8 @@ textarea{
     background-color: white;
     padding: 10px;
     margin-bottom: 20px
+}
+
+.loading{
+    margin: auto 10px;
 }

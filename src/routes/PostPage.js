@@ -1,29 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import SyncLoader from "react-spinners/SyncLoader";
 
 function PostPage() {
+  const blogId = useParams();
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const getPost = async () => {
+    const response = await axios.get(
+      "http://localhost:5000/blogs/" + blogId.id
+    );
+    setData(response.data);
+  };
+
+  useEffect(() => {
+    getPost();
+    setLoading(false);
+  }, []);
+
   return (
-    <div className="post-page">
-      <div className="post-image">
-        <img
-          src="https://media.gettyimages.com/id/1220591821/photo/robot-and-human-hand-with-gears.webp?s=612x612&w=gi&k=20&c=a7qU1Ax17uSP0EovVfzzkxenuEBmuL8Q9GIMywWUbjQ="
-          alt="post-image"
-          className="img-fluid"
-        />
-      </div>
-      <div className="content">
-        <h2 className="title">How to build Robot system with Arduino</h2>
-        <p className="info">
-          <span>Muqtada Jabbar </span>
-          <time>09-08-2023 08:50 PM</time>
-        </p>
-        <p className="summary">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-        </p>
-      </div>
-    </div>
+    <>
+      {loading ? (
+        <div>
+          <SyncLoader color="#36d7b7" />
+        </div>
+      ) : (
+        <div className="post-page">
+          <div className="post-image">
+            <img src={data.coverImage} alt="post image" className="img-fluid" />
+          </div>
+          <div className="content">
+            <h2 className="title">{data.title}</h2>
+            <p className="info">
+              <span>{data.author}</span>
+              <time>{data.createAt}</time>
+            </p>
+            <div dangerouslySetInnerHTML={{ __html: data.content }} />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
